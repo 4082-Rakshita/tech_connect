@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Candidate Search</title>
+  <style>
+    /* Basic styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: rgb(213, 242, 253);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+
+    .candidates-list {
+      margin-top: 40px;
+    }
+
+    .candidate {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .candidate h3 {
+      margin: 0;
+    }
+
+    .candidate p {
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Candidate Search</h1>
+
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input type="text" id="location" placeholder="Enter location">
+    </div>
+
+    <div class="form-group">
+      <label for="job-role">Job Role:</label>
+      <select id="job-role">
+        <option value="">Select a role</option>
+        <option value="developer">Developer</option>
+        <option value="designer">Designer</option>
+        <option value="manager">Manager</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="text" id="email" placeholder="Enter email">
+    </div>
+
+    <div class="form-group">
+      <label for="skills">Skills:</label>
+      <textarea id="skills" placeholder="Enter skills"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="education">Education:</label>
+      <input type="text" id="education" placeholder="Enter education">
+    </div>
+
+    <div class="form-group">
+      <label for="experience">Experience:</label>
+      <input type="text" id="experience" placeholder="Enter experience">
+    </div>
+
+    <button class="btn" onclick="searchCandidates()">Search</button>
+
+    <div class="candidates-list">
+      <h2>Fetched Candidates</h2>
+      <div id="candidates"></div>
+    </div>
+  </div>
+
+  <script>
+    function searchCandidates() {
+      // Get the input values
+      var location = document.getElementById('location').value;
+      var jobRole = document.getElementById('job-role').value;
+      var email = document.getElementById('email').value;
+      var skills = document.getElementById('skills').value;
+      var education = document.getElementById('education').value;
+      var experience = document.getElementById('experience').value;
+
+      // Make an API call or perform the necessary logic to fetch candidates based on the input values
+
+      // For demonstration purposes, let's assume we have an array of fetched candidates
+      var fetchedCandidates = [
+        {
+          name: 'John Doe',
+          location: 'New York',
+          role: 'developer',
+          email: 'johndoe@example.com',
+          skills: 'JavaScript, HTML, CSS',
+          education: 'Bachelor of Computer Science',
+          experience: '5 years'
+        },
+        {
+          name: 'Jane Smith',
+          location: 'San Francisco',
+          role: 'designer',
+          email: 'janesmith@example.com',
+          skills: 'UI/UX Design, Adobe Creative Suite',
+          education: 'Bachelor of Fine Arts',
+          experience: '3 years'
+        },
+        {
+          name: 'Mike Johnson',
+          location: 'Chicago',
+          role: 'manager',
+          email: 'mikejohnson@example.com',
+          skills: 'Leadership, Project Management',
+          education: 'Master of Business Administration',
+          experience: '7 years'
+        },
+      ];
+
+      // Clear the candidates list
+      var candidatesList = document.getElementById('candidates');
+      candidatesList.innerHTML = '';
+
+      // Iterate over the fetched candidates and display them
+      fetchedCandidates.forEach(function(candidate) {
+        // Filter candidates based on input values
+        if ((location === '' || candidate.location.toLowerCase() === location.toLowerCase()) &&
+            (jobRole === '' || candidate.role === jobRole) &&
+            (email === '' || candidate.email.toLowerCase() === email.toLowerCase()) &&
+            (skills === '' || candidate.skills.toLowerCase().includes(skills.toLowerCase())) &&
+            (education === '' || candidate.education.toLowerCase().includes(education.toLowerCase())) &&
+            (experience === '' || candidate.experience.toLowerCase().includes(experience.toLowerCase()))) {
+          var candidateElement = document.createElement('div');
+          candidateElement.classList.add('candidate');
+
+          candidateElement.innerHTML = `
+            <h3>${candidate.name}</h3>
+            <p><strong>Location:</strong> ${candidate.location}</p>
+            <p><strong>Role:</strong> ${candidate.role}</p>
+            <p><strong>Email:</strong> ${candidate.email}</p>
+            <p><strong>Skills:</strong> ${candidate.skills}</p>
+            <p><strong>Education:</strong> ${candidate.education}</p>
+            <p><strong>Experience:</strong> ${candidate.experience}</p>
+          `;
+
+          candidatesList.appendChild(candidateElement);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
